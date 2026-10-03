@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>블룸(Bloom) - 공통 세계관 설정</title>
+<style>
+  :root{
+    --bg:#f5f5f5;
+    --panel:#ffffff;
+    --text:#222;
+    --muted:#666;
+    --line:#d9d9d9;
+    --accent:#2f8f46;
+    --accent-soft:#eef8f0;
+    --link:#0275d8;
+    --fixed:#2f8f46;
+    --trend:#b97800;
+    --open:#777;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR","Apple SD Gothic Neo",Arial,sans-serif;
+    line-height:1.72;
+  }
+  a{color:var(--link);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .layout{
+    width:min(1180px,100%);
+    margin:0 auto;
+    padding:28px 20px 64px;
+    display:grid;
+    grid-template-columns:260px minmax(0,1fr);
+    gap:24px;
+  }
+  .toc{
+    position:sticky;
+    top:18px;
+    align-self:start;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .toc h2{
+    font-size:15px;
+    margin:0;
+    padding:12px 14px;
+    border-bottom:1px solid var(--line);
+    background:#fafafa;
+  }
+  .toc a{
+    display:block;
+    padding:7px 14px;
+    color:#444;
+    font-size:13px;
+  }
+  .toc a:hover{background:var(--accent-soft);text-decoration:none}
+  .doc{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:28px 34px 48px;
+    min-width:0;
+  }
+  .title-row{
+    border-bottom:2px solid #333;
+    padding-bottom:14px;
+    margin-bottom:18px;
+  }
+  h1{
+    font-size:32px;
+    line-height:1.25;
+    margin:0 0 8px;
+  }
+  .subtitle{
+    color:var(--muted);
+    font-size:14px;
+  }
+  .meta{
+    width:100%;
+    border-collapse:collapse;
+    margin:18px 0 24px;
+    font-size:14px;
+  }
+  .meta th,.meta td{
+    border:1px solid var(--line);
+    padding:9px 11px;
+    vertical-align:top;
+  }
+  .meta th{
+    width:145px;
+    background:#f7f7f7;
+    text-align:left;
+  }
+  .lead{
+    background:var(--accent-soft);
+    border-left:4px solid var(--accent);
+    padding:15px 17px;
+    margin:18px 0 26px;
+  }
+  h2{
+    font-size:24px;
+    margin:36px 0 14px;
+    padding-bottom:7px;
+    border-bottom:1px solid #aaa;
+  }
+  h3{
+    font-size:18px;
+    margin:26px 0 10px;
+  }
+  p{margin:10px 0}
+  ul{padding-left:24px}
+  li{margin:5px 0}
+  table.wiki{
+    width:100%;
+    border-collapse:collapse;
+    margin:14px 0 22px;
+    font-size:14px;
+  }
+  .wiki th,.wiki td{
+    border:1px solid var(--line);
+    padding:10px 11px;
+    vertical-align:top;
+  }
+  .wiki th{
+    width:180px;
+    background:#f7f7f7;
+    text-align:left;
+  }
+  .badge{
+    display:inline-block;
+    padding:2px 7px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:700;
+    white-space:nowrap;
+    margin-right:5px;
+  }
+  .fixed{background:#e8f5ea;color:var(--fixed);border:1px solid #b8ddbF}
+  .trend{background:#fff5dd;color:var(--trend);border:1px solid #ead19a}
+  .open{background:#f0f0f0;color:var(--open);border:1px solid #d5d5d5}
+  .note{
+    background:#fafafa;
+    border:1px solid var(--line);
+    padding:12px 14px;
+    margin:13px 0;
+    color:#444;
+  }
+  .quote{
+    font-size:17px;
+    border-left:4px solid #999;
+    padding:8px 16px;
+    margin:16px 0;
+    color:#333;
+    background:#fbfbfb;
+  }
+  details{
+    margin:12px 0;
+    border:1px solid var(--line);
+    border-radius:5px;
+    background:#fcfcfc;
+  }
+  summary{
+    cursor:pointer;
+    padding:10px 12px;
+    font-weight:700;
+  }
+  details>div{padding:0 14px 14px}
+  .sep{color:#aaa;margin:0 5px}
+  .footer{
+    margin-top:44px;
+    padding-top:14px;
+    border-top:1px solid var(--line);
+    color:var(--muted);
+    font-size:12px;
+  }
+  code{
+    background:#f3f3f3;
+    border:1px solid #e1e1e1;
+    padding:1px 4px;
+    border-radius:3px;
+  }
+  @media (max-width:860px){
+    .layout{display:block;padding:0}
+    .toc{position:static;border-radius:0;border-left:0;border-right:0}
+    .doc{border-radius:0;border-left:0;border-right:0;padding:22px 18px 42px}
+    h1{font-size:27px}
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<nav class="toc">
+  <h2>목차</h2>
+  <a href="#s1">1. 개요</a>
+  <a href="#s2">2. 메인 시놉시스</a>
+  <a href="#s3">3. 세계와 생태</a>
+  <a href="#s4">4. 지적 생명과 문명</a>
+  <a href="#s5">5. 자원</a>
+  <a href="#s6">6. 기술과 능력</a>
+  <a href="#s7">7. 역사와 시대</a>
+  <a href="#s8">8. RALLY FRONTIER</a>
+  <a href="#s9">9. 설정 운용 원칙</a>
+  <a href="#s10">10. 의도적으로 미정인 부분</a>
+</nav>
+
+<main class="doc">
+  <div class="title-row">
+    <h1>블룸(Bloom)</h1>
+    <div class="subtitle">여러 게임에서 공통으로 사용하는 세계관 설정</div>
+  </div>
+
+  <table class="meta">
+    <tr><th>명칭</th><td><b>블룸 / Bloom</b></td></tr>
+    <tr><th>분류</th><td>공통 게임 세계관</td></tr>
+    <tr><th>핵심 이미지</th><td>생명이 지나치게 풍부한 행성, 다양한 생명 계통의 독립 문명, 생체기술, 거대한 생태권</td></tr>
+    <tr><th>문체 방향</th><td>담백하고 직관적. 설정을 과하게 설명하지 않으며, 병맛·캐주얼함은 문구보다 상황과 연출에서 드러낸다.</td></tr>
+  </table>
+
+  <div class="lead">
+    이 문서는 특정 게임의 규칙집이 아니라, 서로 다른 장르의 게임에서 재사용할 수 있는 <b>공통 세계관의 최소 골격</b>을 정리한다.
+    독자가 자연스럽게 납득할 수 있는 내용은 굳이 규칙으로 만들지 않으며, 실제 작품을 제한할 정도로 필요한 설정만 고정한다.
+  </div>
+
+  <h2 id="s1">1. 개요</h2>
+  <p>
+    <b>블룸</b>은 지구와 비슷하지만 생명체가 살아가기에 훨씬 유리한 환경을 가진 행성이다.
+    이 때문에 생명은 매우 다양한 방향으로 진화했고, 서로 다른 여러 생명 계통에서 지능과 문명이 독립적으로 나타났다.
+  </p>
+  <p>
+    블룸 세계관의 목적은 하나의 장르나 특정 게임을 설명하는 데 있지 않다.
+    RTS, RPG, 액션, 로그라이크, 디펜스, 도시 건설, 생존, 카드게임 등 서로 다른 게임이 같은 세계 안에서 자연스럽게 존재할 수 있도록 하는 것이 기본 방향이다.
+  </p>
+
+  <h2 id="s2">2. 메인 시놉시스</h2>
+  <div class="quote">
+    지구와 비슷하지만 훨씬 생명 친화적인 행성. 풍부한 산소와 물, 비옥한 환경 덕분에 생명은 폭발적으로 다양해졌고, 여러 계통에서 지능이 독립적으로 나타났다.<br><br>
+    각 생명체는 자기 환경에 맞는 방식으로 문명을 만들었다.<br><br>
+    그리고 문명이 커지자 더 많은 땅과 더 많은 에너지가 필요해졌다.
+  </div>
+  <p>
+    위 문단을 블룸 세계관의 <b>기준 시놉시스</b>로 사용한다.
+    이후 설정은 이 시놉시스를 보강하되, 불필요하게 설명을 늘리지 않는 것을 원칙으로 한다.
+  </p>
+
+  <h2 id="s3">3. 세계와 생태</h2>
+
+  <h3>3.1. 생명 친화적 행성</h3>
+  <table class="wiki">
+    <tr>
+      <th><span class="badge fixed">확정</span> 환경</th>
+      <td>지구와 유사하지만 산소와 물이 풍부하고 전반적으로 비옥하다.</td>
+    </tr>
+    <tr>
+      <th><span class="badge fixed">확정</span> 생명 다양성</th>
+      <td>높은 생물 생산성과 긴 진화 역사로 인해 생명이 매우 다양한 형태로 분화했다.</td>
+    </tr>
+    <tr>
+      <th><span class="badge fixed">확정</span> 인간</th>
+      <td>존재하지 않는다. 인간이나 인간형 종을 세계의 기준점으로 삼지 않는다.</td>
+    </tr>
+  </table>
+
+  <h3>3.2. 거대한 생태권</h3>
+  <p>
+    블룸은 대륙 구분보다 <b>거대한 생태권의 차이</b>가 두드러지는 세계다.
+    숲, 균사 지대, 습지, 초원, 건조지대 등 서로 다른 환경마다 생물 구성과 문화가 크게 달라질 수 있다.
+  </p>
+  <p>
+    생태권 사이 경계의 형태나 단절 정도는 공통 규칙으로 정하지 않는다.
+  </p>
+
+  <h2 id="s4">4. 지적 생명과 문명</h2>
+
+  <h3>4.1. 다계통 지성</h3>
+  <p>
+    블룸에서는 특정 하나의 생물 계통만 지능을 독점하지 않는다.
+    꽃, 균류, 곤충을 비롯한 서로 다른 계통에서 지적 생명과 문명이 각각 독립적으로 등장할 수 있다.
+  </p>
+
+  <h3>4.2. 문명의 독립적 발생</h3>
+  <table class="wiki">
+    <tr>
+      <th><span class="badge fixed">확정</span> 기원</th>
+      <td>각 생태권의 문명은 서로 거의 관계없이 독립적으로 발전했다.</td>
+    </tr>
+    <tr>
+      <th>공통 고대문명</th>
+      <td>기본 설정으로 두지 않는다.</td>
+    </tr>
+    <tr>
+      <th>기술의 유사성</th>
+      <td>서로 비슷한 기술이나 제도가 있더라도 각자 비슷한 필요에 의해 독립적으로 발전한 것으로 볼 수 있다.</td>
+    </tr>
+  </table>
+
+  <h3>4.3. 종족과 국가</h3>
+  <p>
+    <b>생물 계통과 국가는 별개의 개념</b>이다.
+    같은 계통 안에서도 여러 국가가 존재할 수 있으며, 서로 다른 계통이 하나의 국가를 구성할 수도 있다.
+  </p>
+  <p>
+    국가는 대체로 지역이나 특정 생물 계통을 중심으로 형성되는 경우가 많지만, 모든 국가가 같은 원리로 만들어질 필요는 없다.
+  </p>
+
+  <h3>4.4. 혼합 사회</h3>
+  <p>
+    서로 다른 생물 계통은 같은 국가와 도시 안에서 함께 살아갈 수 있다.
+    다만 신체 구조와 생활 방식의 차이 때문에 생활권과 시설은 자연스럽게 어느 정도 나뉠 수 있다.
+  </p>
+  <div class="note">
+    예: 비행 생물용 상부 공간, 지하 생활종의 굴·지하 구역, 수생 생물용 수로 등.
+    이는 사회적 분리 규칙이라기보다 서로 다른 생물학적 생활 조건의 결과다.
+  </div>
+
+  <h3>4.5. 외형의 기본 방향</h3>
+  <p>
+    <span class="badge trend">기본 경향</span>
+    원래 생물의 정체성과 실루엣은 유지하되, 도구 사용·이동·의사소통 등 문명 생활이 성립하도록 필요한 만큼만 의인화한다.
+  </p>
+  <p>
+    원형을 그대로 유지해도 자연스러운 생물은 굳이 인간형으로 만들지 않는다.
+  </p>
+
+  <h2 id="s5">5. 자원</h2>
+
+  <h3>5.1. 가스</h3>
+  <p>
+    블룸의 생명체가 살아가며 품었던 에너지는 생명이 다한 뒤 개체의 기억이나 자아를 남기지 않은 채 자연으로 돌아간다.
+    그 에너지는 아주 오랜 시간에 걸쳐 지하에 축적될 수 있다.
+  </p>
+  <p>
+    블룸의 문명은 이 자원을 채굴하고 정제하여 다양한 용도로 사용한다.
+    별도의 거창한 고유명사를 붙이지 않고, 필요할 때는 단순히 <b>가스</b>라고 부른다.
+  </p>
+
+  <table class="wiki">
+    <tr>
+      <th><span class="badge fixed">확정</span> 기원</th>
+      <td>생명에서 유래한 비의식성 에너지가 오랜 시간 축적된 자원.</td>
+    </tr>
+    <tr>
+      <th><span class="badge fixed">확정</span> 개체성</th>
+      <td>죽은 개체의 기억·감정·자아는 남지 않는다.</td>
+    </tr>
+    <tr>
+      <th><span class="badge fixed">확정</span> 활용</th>
+      <td>원유처럼 정제 방법에 따라 연료, 배양재료, 약품, 산업재료 등 다양한 용도로 활용할 수 있다.</td>
+    </tr>
+    <tr>
+      <th><span class="badge trend">기본 경향</span> 고갈성</th>
+      <td>생명에서 계속 유래하더라도 매장층 형성에는 매우 긴 시간이 걸리므로, 문명 시간척도에서는 사실상 비재생 자원처럼 취급하는 감각을 우선한다.</td>
+    </tr>
+  </table>
+
+  <h3>5.2. 일반 물질 자원</h3>
+  <p>
+    가스와 별개로 건축, 장비, 생체재료, 구조물 등을 만드는 데 필요한 일반 물질 자원이 존재한다.
+    공통 세계관에서 이들을 하나의 고정된 자원 체계로 만들지는 않는다.
+  </p>
+
+  <h3>5.3. 게임별 자원 추상화</h3>
+  <p>
+    <b>미네랄 / 가스</b> 같은 2자원 구조는 블룸 전체의 절대 법칙이 아니라 개별 게임의 게임플레이용 추상화로 취급한다.
+  </p>
+  <div class="note">
+    RALLY FRONTIER에서는 일반 물질 자원을 <b>미네랄</b>, 고급 에너지 자원을 <b>가스</b>로 단순화할 수 있다.
+    다른 게임에서는 목재, 수지, 금속, 먹이, 배양재료 등 전혀 다른 자원 표현을 사용해도 세계관과 충돌하지 않는다.
+  </div>
+
+  <h2 id="s6">6. 기술과 능력</h2>
+
+  <h3>6.1. 생체기술</h3>
+  <p>
+    <span class="badge trend">기본 경향</span>
+    블룸 문명의 기술 미학은 생물학 중심이다.
+    문명은 원하는 특성을 가진 생물을 오랜 세월 선택·교배·사육·재배하면서 기술처럼 이용하는 경우가 많다.
+  </p>
+  <div class="note">
+    단단한 식물을 방벽으로 이용하거나, 큰 씨앗을 투사체로 쓰고, 운반 능력이 뛰어난 곤충을 수송에 사용하는 식이다.
+  </div>
+  <p>
+    다만 <b>생체기술만 존재해야 한다는 절대 규칙은 아니다.</b>
+    특정 시대나 지역에서는 기계·금속·전기 또는 혼합 기술이 등장할 수 있다.
+  </p>
+
+  <h3>6.2. 초자연적으로 보이는 능력</h3>
+  <p>
+    불꽃, 보호막, 순간 성장, 특수 감각 등 판타지처럼 보이는 현상도 별도의 마법 체계보다는
+    <b>가스와 생체기술의 응용</b>으로 설명하는 것을 기본으로 한다.
+  </p>
+  <p>
+    누가 어떤 방식으로 이를 직접 다룰 수 있는지는 공통 세계관에서 고정하지 않는다.
+  </p>
+
+  <h2 id="s7">7. 역사와 시대</h2>
+
+  <h3>7.1. 하나의 세계, 여러 시대</h3>
+  <p>
+    모든 작품은 같은 행성 블룸을 공유하지만, 서로 다른 시대를 배경으로 할 수 있다.
+    문명 초기, 확장기, 더 발전한 후대 등 시대를 자유롭게 선택할 수 있다.
+  </p>
+  <p>
+    동일한 지역·국가·종족도 시대에 따라 다른 모습으로 재해석할 수 있다.
+  </p>
+
+  <h3>7.2. 문명 확장기</h3>
+  <p>
+    초기의 문명들은 거대한 생태권과 거리 때문에 서로의 존재를 잘 모르거나 제한적으로만 알고 지냈다.
+  </p>
+  <p>
+    이후 인구와 문명 규모가 성장하면서 더 많은 땅과 자원이 필요해졌고,
+    각 문명이 자신의 기존 영역 바깥으로 진출하면서 서로 처음으로 본격적인 접촉과 충돌을 시작했다.
+  </p>
+  <div class="quote">
+    성장 → 확장 → 조우 → 충돌
+  </div>
+
+  <h2 id="s8">8. RALLY FRONTIER</h2>
+
+  <h3>8.1. 세계관 내 위치</h3>
+  <p>
+    <b>RALLY FRONTIER</b>는 블룸의 여러 시대 가운데 <b>문명 확장기</b>를 다루는 작품이다.
+    서로 독립적으로 성장하던 문명들이 새로운 땅과 자원을 찾아 영역을 넓히면서 본격적으로 충돌하기 시작한 시기가 배경이다.
+  </p>
+
+  <h3>8.2. 시대적 미학</h3>
+  <p>
+    <span class="badge fixed">RALLY FRONTIER 기준</span>
+    기본적인 사회와 시대감은 <b>생체 중세풍</b>이다.
+  </p>
+  <p>
+    현실의 중세를 그대로 복제하기보다는, 중세 수준의 사회와 전쟁을 블룸의 생물학적 기술과 환경으로 표현한다.
+  </p>
+  <div class="note">
+    예: 돌 성벽 대신 거대 뿌리 방벽, 공장 대신 사육·재배·배양 시설, 말 대신 거대 곤충이나 다른 생물을 활용한 운송.
+  </div>
+
+  <h3>8.3. 전쟁 양식</h3>
+  <p>
+    <span class="badge fixed">RALLY FRONTIER 기준</span>
+    전쟁의 기본적인 시각적 감각은 <b>군체전 중심</b>이다.
+    소수 영웅보다 다수의 생명체 집단·무리·군락이 움직이는 전투가 중심이 된다.
+  </p>
+  <p>
+    이는 모든 문명이 하나의 집단의식을 가진다는 뜻은 아니다.
+    군체를 통솔하는 방식은 문명마다 다를 수 있다.
+  </p>
+
+  <h2 id="s9">9. 설정 운용 원칙</h2>
+
+  <table class="wiki">
+    <tr>
+      <th>최소 설정</th>
+      <td>독자가 부연설명 없이 자연스럽게 납득할 수 있는 부분은 규칙으로 만들지 않는다.</td>
+    </tr>
+    <tr>
+      <th>공통 세계관 우선</th>
+      <td>특정 게임의 시스템을 블룸 전체의 자연법칙으로 끌어올리지 않는다.</td>
+    </tr>
+    <tr>
+      <th>재사용성</th>
+      <td>새 게임이나 새 장르를 만들 때 기존 설정이 제약보다 기반으로 작동해야 한다.</td>
+    </tr>
+    <tr>
+      <th>직관적 명칭</th>
+      <td>의미 없는 판타지 조어보다 한국어와 영어에서 바로 뜻이나 기능을 짐작할 수 있는 이름을 우선한다.</td>
+    </tr>
+    <tr>
+      <th>설정 확정 기준</th>
+      <td>선택에 따라 세계관 방향이 실제로 달라지는 경우만 확정한다. “둘 다 가능하다”가 자연스러운 항목은 미정으로 둔다.</td>
+    </tr>
+    <tr>
+      <th>톤</th>
+      <td>기본 설명은 담백하게 유지하며, 병맛·캐주얼함은 상황과 캐릭터에서 자연스럽게 드러낸다.</td>
+    </tr>
+  </table>
+
+  <h3>9.1. 설정 상태 표기</h3>
+  <p>
+    <span class="badge fixed">확정</span>
+    공통 세계관의 기준으로 유지하는 설정.
+  </p>
+  <p>
+    <span class="badge trend">기본 경향</span>
+    현재 세계관의 기본 감각이지만 필요하면 작품별로 다르게 표현할 수 있는 설정.
+  </p>
+  <p>
+    <span class="badge open">미정</span>
+    현재 정할 필요가 없거나, 여러 방식이 자연스럽게 공존할 수 있어 의도적으로 비워둔 설정.
+  </p>
+
+  <h2 id="s10">10. 의도적으로 미정인 부분</h2>
+  <p>
+    아래 항목은 현재 공통 세계관에서 하나의 답으로 고정하지 않는다.
+  </p>
+  <ul>
+    <li>모든 생물 계통에서 지능이 어느 정도까지 흔한지</li>
+    <li>생태권 사이 경계가 자연스럽게 이어지는지, 극단적으로 단절되는지</li>
+    <li>각 국가의 정확한 정치 체계와 형성 과정</li>
+    <li>가스를 직접 다룰 수 있는 생명체의 범위</li>
+    <li>가스 매장층의 정확한 지질학적 형성과 재생 속도</li>
+    <li>모든 시대의 기술 수준</li>
+    <li>군체를 지휘하는 공통 방식</li>
+    <li>RALLY FRONTIER의 ‘Frontier’가 특정 지역명인지, 일반적인 변경지대 개념인지</li>
+  </ul>
+
+  <details>
+    <summary>문서 작성 원칙 요약</summary>
+    <div>
+      이 문서의 목적은 설정을 많이 만드는 것이 아니라, 여러 게임이 같은 세계를 공유할 수 있도록 충돌하지 않는 최소한의 공통 틀을 유지하는 것이다.
+      새로운 설정은 실제 작품에서 필요할 때 추가하며, 필요 없는 설정은 만들지 않는다.
+    </div>
+  </details>
+
+  <div class="footer">
+    BLOOM 공통 세계관 설정 · 초기 정리본 · 단일 HTML 문서
+  </div>
+</main>
+</div>
+</body>
+</html>
