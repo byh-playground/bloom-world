@@ -55,7 +55,19 @@ async function main(){
       const caption=document.querySelector('#bloom-showcase [data-copy]')?.textContent;
       return !!caption && caption!=='실제 플레이 소개' && caption!=='소개를 실행하지 못했습니다';
     }, null, {timeout:95000});
-    await page.waitForTimeout(5800);
+    await page.waitForFunction((gameName) => {
+      const iframe=document.querySelector('#bloom-showcase iframe');
+      const win=iframe?.contentWindow,doc=win?.document;
+      if (!win || !doc) return false;
+      if (gameName==='squish-born') return win.BloomHatchery?.inspect?.().simulation?.state==='running';
+      if (gameName==='yarn-mayhem') return win.__YARN_MAYHEM?.snapshot?.().phase==='PLAYING';
+      if (gameName==='meow-tumble') return doc.querySelector('#app')?.dataset?.view==='play';
+      if (gameName==='budmori-io') return doc.querySelector('#startScreen')?.hidden===true;
+      if (gameName==='bloom-digmori') return doc.querySelector('#loading')?.hidden===true;
+      if (gameName==='rally-frontier') return doc.querySelector('#lobby')?.classList.contains('hidden')===true;
+      return !!doc.getElementById('field');
+    }, NAME, {timeout:65000});
+    await page.waitForTimeout(1800);
     const state=await probe(page);
     console.log('GAME_SHOWCASE_STATE',NAME,JSON.stringify(viewport),JSON.stringify(state).slice(0,1500));
     assert.ok(state.hostCaption && !['실제 플레이 소개','소개를 실행하지 못했습니다'].includes(state.hostCaption),'A real chapter must play');
