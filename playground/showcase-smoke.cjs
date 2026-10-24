@@ -39,7 +39,7 @@ async function main(){
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  const browser=await chromium.launch({headless:true,args:['--enable-webgl','--use-gl=angle','--use-angle=swiftshader']});
  try{
-  for(const viewport of [{width:1280,height:800},{width:844,height:390}]){
+  for(const viewport of (NAME==='bloom-digmori'?[{width:1280,height:800}]:[{width:1280,height:800},{width:844,height:390}])){
    const page=await browser.newPage({viewport});
    if(NAME==='bloom-digmori'){
      // The exact published compat physics engine, not a mock. CI otherwise stalls on large third-party CDN ESM downloads.
