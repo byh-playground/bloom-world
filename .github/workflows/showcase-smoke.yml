@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: byh-playground/${{ matrix.game }}
-          ref: codex/live-showcase-intro-20261024
+          ref: ${{ matrix.game == 'budmori-io' && 'codex/live-showcase-budmori-rebase-20261025' || 'codex/live-showcase-intro-20261024' }}
           path: game
       - uses: actions/setup-node@v4
         with:
