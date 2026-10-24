@@ -99,6 +99,33 @@ async function main(){
     }, NAME, {timeout:90000,polling:500});
     await page.waitForTimeout(1800);
     const state=await probe(page);
+    const layout=await page.evaluate(()=>{
+      const host=document.querySelector('#bloom-showcase');
+      const rect=selector=>{
+        const r=host.querySelector(selector).getBoundingClientRect();
+        return {left:r.left,top:r.top,right:r.right,bottom:r.bottom,width:r.width,height:r.height};
+      };
+      return {
+        stage:rect('.bloom-showcase-stage'),
+        frame:rect('iframe'),
+        heading:rect('[data-copy]'),
+        close:rect('[data-action=close]'),
+        play:rect('[data-action=play]'),
+        replay:rect('[data-action=replay]'),
+        stageBorder:getComputedStyle(host.querySelector('.bloom-showcase-stage')).borderTopWidth,
+      };
+    });
+    for(const selector of ['stage','frame']){
+      const box=layout[selector];
+      assert.ok(Math.abs(box.left)<1 && Math.abs(box.top)<1,selector+' starts at viewport origin');
+      assert.ok(box.width>=viewport.width-1 && box.height>=viewport.height-1,selector+' fills viewport');
+    }
+    assert.equal(layout.stageBorder,'0px','Gameplay must not sit inside an inset preview card');
+    for(const selector of ['close','play','replay']){
+      const box=layout[selector];
+      assert.ok(box.left>=0 && box.right<=viewport.width+1,selector+' remains horizontally accessible');
+      assert.ok(box.top>=0 && box.bottom<=viewport.height+1,selector+' remains vertically accessible');
+    }
     console.log('GAME_SHOWCASE_STATE',NAME,JSON.stringify(viewport),JSON.stringify(state).slice(0,1500));
     assert.ok(state.hostCaption && !['실제 플레이 소개','소개를 실행하지 못했습니다'].includes(state.hostCaption),'A real chapter must play');
     assert.ok(!state.hostSubtitle?.includes('시간이 초과'),'Demo must load');
