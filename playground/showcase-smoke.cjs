@@ -57,12 +57,12 @@ async function main(){
    page.on('pageerror',error=>{errors.push(error.message);console.log('PAGEERROR',error.stack||error.message);});
    page.on('console',msg=>{if(['error','warning'].includes(msg.type()))console.log('BROWSER',msg.type(),msg.text().slice(0,220));});
    page.on('requestfailed',req=>console.log('NETWORK',req.url().slice(0,145),req.failure()?.errorText));
+   let DIAGNOSTIC_TIMER=null;
    try{
     const result=await page.goto('http://127.0.0.1:'+server.address().port+'/#/showcase',{waitUntil:'domcontentloaded',timeout:40000});
     assert.equal(result.status(),200);
     await page.locator('#bloom-showcase:not([hidden])').waitFor({state:'visible',timeout:30000});
     await page.locator('#bloom-showcase iframe').waitFor({state:'attached',timeout:30000});
-    let DIAGNOSTIC_TIMER=null;
     if(NAME==='bloom-digmori'){
       const diagnose=()=>page.evaluate(()=>{
         const parent=document.querySelector('#bloom-showcase');
