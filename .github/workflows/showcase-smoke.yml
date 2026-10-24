@@ -1,0 +1,39 @@
+name: All game introduction browser smoke
+on:
+  pull_request:
+    paths:
+      - 'playground/index.html'
+      - '.github/workflows/showcase-smoke.yml'
+      - 'playground/showcase-smoke.cjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  showcase:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        game: [squish-born, yarn-mayhem, meow-tumble, bloom-digmori, bloom-sketch-town, budmori-io, rally-frontier]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: byh-playground/${{ matrix.game }}
+          ref: codex/live-showcase-intro-20261024
+          path: game
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-save --ignore-scripts playwright@1.63.0
+      - run: npx playwright install --with-deps chromium
+      - run: timeout 240s node playground/showcase-smoke.cjs
+        env:
+          SHOWCASE_GAME: ${{ matrix.game }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: intro-${{ matrix.game }}
+          path: showcase-artifacts/
+          if-no-files-found: ignore
