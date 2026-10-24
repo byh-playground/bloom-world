@@ -97,7 +97,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
 .card-description{font-size:13px;line-height:1.78;color:#a8b7aa;min-height:47px;margin:0 0 17px;word-break:keep-all}
 .tag-list{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}.tag{border-radius:5px;padding:5px 8px;font-size:10px;color:#a8bca8;background:#263127;border:1px solid #374739;font-weight:740}
 .card-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;border-top:1px solid #2c3930;padding-top:15px}
-.card-status{font-size:11px;color:#a0afa1;font-weight:720}.card-status strong{color:#d6e2d4;font-weight:850}
+.card-status{min-width:0;overflow-wrap:anywhere;font-size:11px;color:#a0afa1;font-weight:720}.card-status strong{color:#d6e2d4;font-weight:850}
 .card-more{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:830;color:var(--accent);min-height:44px;padding:0 0 0 7px;border:0;background:transparent;white-space:nowrap}.card-more:hover{text-decoration:underline}.card-more svg{width:14px;height:14px}
 .empty{display:none;border:1px dashed #486047;border-radius:15px;padding:68px 20px;text-align:center;color:#a5b3a8}.empty b{display:block;font-size:20px;color:#fff;margin-bottom:10px}.empty.show{display:block}
 .world-strip{position:relative;margin-top:46px;background:#d2ed9e;color:#182418;border-radius:18px;min-height:180px;padding:32px 34px;overflow:hidden;display:flex;justify-content:space-between;align-items:center;gap:20px}
@@ -153,7 +153,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
 .release-state{font-size:11px;color:#b2c3b3;overflow-wrap:anywhere;margin:0 0 17px}
 .release-state.warning{color:#f0d59b}
 .channel-switch{display:flex;gap:9px;flex-wrap:wrap;margin:0 0 16px}
-.channel-option{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 15px;border-radius:10px;border:1px solid #466149;background:#1b281f;color:#bed6bd;font-size:12px;font-weight:830;cursor:pointer}
+.channel-option{display:flex;align-items:center;gap:8px;min-width:0;max-width:100%;min-height:44px;padding:8px 15px;overflow-wrap:anywhere;border-radius:10px;border:1px solid #466149;background:#1b281f;color:#bed6bd;font-size:12px;font-weight:830;cursor:pointer}
 .channel-option[aria-pressed="true"]{background:#d3f576;color:#172218;border-color:#d3f576}
 .channel-option:disabled{opacity:.48;cursor:not-allowed}
 .channel-warning{color:#e2c998;background:rgba(155,115,51,.11);border:1px solid rgba(218,173,91,.28);padding:13px 15px;border-radius:10px;font-size:12px;line-height:1.8;margin:0 0 18px}
@@ -161,6 +161,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
 .channel-technical code{font-family:ui-monospace,monospace;color:#ceddc6}
 .channel-loading{font-size:11px;color:#bdcdba}
 .btn.disabled{opacity:.45;pointer-events:none;cursor:not-allowed}
+.release-retry{min-height:44px;padding:9px 14px;border:1px solid #536449;border-radius:10px;background:#263429;color:#d1eaa7;font-size:12px;font-weight:780;cursor:pointer}.release-retry:disabled,.btn:disabled{opacity:.5;cursor:not-allowed}
 @media(max-width:720px){.channel-panel{align-items:stretch}.channel-tabs{width:100%;justify-content:space-between}.channel-tab{flex:1;padding:9px 12px;font-size:12px}.channel-note{min-width:0}.channel-switch{gap:6px}.channel-option{flex:1;justify-content:center}}
 @media(max-width:350px){.channel-tab{font-size:11px;padding:9px 7px}}
 </style>
@@ -193,7 +194,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
         <div class="featured-art" id="featuredArt" aria-hidden="true"></div>
         <div class="featured-top"><span class="feature-pill"><span class="dot" aria-hidden="true"></span> FEATURED / RELEASE SNAPSHOT</span><span class="feature-mark" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18M3 12h18M5 5l14 14M19 5 5 19"/></svg></span></div>
         <div class="side-stamp">PROCEDURAL WORLDS · SMALL CIVILIZATIONS</div>
-        <div class="featured-bottom"><div class="featured-meta">01 / SMALL WORLDS. BIG BATTLES.</div><h2 class="featured-title">RALLY<br>FRONTIER</h2><div class="featured-foot"><p>작은 문명들이 만들어내는 커다란 전쟁.<br>군체전 중심 실시간 전략 게임.</p><a class="featured-action" href="#/game/rally-frontier" aria-label="랠리 프론티어 자세히 보기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 19 19 5M8 5h11v11"/></svg></a></div></div>
+        <div class="featured-bottom"><div class="featured-meta">01 / SMALL WORLDS. BIG BATTLES.</div><h2 class="featured-title">RALLY<br>FRONTIER</h2><div class="featured-foot"><p>작은 문명들이 만들어내는 커다란 전쟁.<br>군체전 중심 실시간 전략 게임.</p><a class="featured-action" href="#/game/rally-frontier" data-focus-key="featured-rally-frontier" aria-label="랠리 프론티어 자세히 보기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 19 19 5M8 5h11v11"/></svg></a></div></div>
       </div>
     </div>
   </section>
@@ -208,6 +209,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
         <button class="channel-tab" type="button" role="tab" data-channel="nightly" aria-selected="false">Nightly</button>
       </div>
       <p id="channelNote" class="channel-note" role="status" aria-live="polite">GitHub 릴리즈 태그를 조회 중입니다…</p>
+      <button id="retryReleases" class="release-retry" type="button" data-focus-key="retry-releases" hidden>실패한 조회 다시 시도</button>
     </div>
     <div class="catalog-toolbar">
       <div class="filter-wrap" role="group" aria-label="게임 장르 필터">
@@ -221,7 +223,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
     </div>
     <div class="catalog-count" role="status" aria-live="polite" id="countText">총 <strong>8개</strong>의 게임을 전시하고 있어요</div>
     <div class="game-grid" id="gameGrid" aria-label="게임 목록"></div>
-    <div class="empty" id="emptyState" role="status"><b>일치하는 게임이 없어요.</b>다른 장르나 검색어로 찾아보세요.<div style="margin-top:20px"><button type="button" class="btn btn-ghost" id="resetBtn">전체 게임 보기</button></div></div>
+    <div class="empty" id="emptyState" role="status"><b>일치하는 게임이 없어요.</b><p id="emptyDescription">다른 장르나 검색어로 찾아보세요.</p><div style="margin-top:20px"><button type="button" class="btn btn-ghost" id="resetBtn">전체 게임 보기</button></div></div>
     <aside class="world-strip"><div class="world-copy"><p class="section-overline">ONE UNIVERSE, MANY STORIES</p><h3>게임 밖으로도 이어지는 BLOOM 세계관.</h3><p>랠리 프론티어의 문명과 작은 생명들이 살아가는 세계가 궁금해졌다면?</p></div><a class="world-link" href="https://byh-playground.github.io/bloom-world/" target="_blank" rel="noopener noreferrer">세계관 위키 열기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 19 19 5M8 5h11v11"/></svg></a></aside>
   </section>
   <hr class="section-separator">
@@ -292,52 +294,110 @@ function art(name,suffix='card'){
  }
  return svgScene(id,'<rect width="760" height="460" fill="#486b5b"/>');
 }
-const grid=document.getElementById('gameGrid'), searchInput=document.getElementById('searchInput'),countText=document.getElementById('countText'),empty=document.getElementById('emptyState');
-const channelNote=document.getElementById('channelNote');
-const RELEASES=Object.create(null);
-const OWNER='byh-playground';
-let currentFilter='all',currentChannel='all',previousFocus=null;
-let tagsPending=true;
+const grid=document.getElementById('gameGrid'),searchInput=document.getElementById('searchInput'),countText=document.getElementById('countText'),empty=document.getElementById('emptyState');
+const channelNote=document.getElementById('channelNote'),retryReleases=document.getElementById('retryReleases');
 const dialog=document.getElementById('gameDialog'),dialogClose=document.getElementById('dialogClose');
+const releaseConfig={
+  owner:'byh-playground',
+  channels:['stable','nightly'],
+  tags:{stable:/^v\d+\.\d+\.\d+$/,nightly:/^nightly-\d{8}T\d{6}Z-[0-9a-f]{12}$/},
+  cache:{key:'bloom-playground-releases-v3',maxAgeMs:300000},
+  request:{timeoutMs:9000}
+};
+const RELEASES=Object.fromEntries(GAMES.map(g=>[g.repo,{status:'loading',stable:null,nightly:null}]));
+const releaseRequests=new Set(),releaseRetries=new Set();
+const rendered={grid:null,detail:null,gameId:null};
+let currentFilter='all',currentChannel='all',previousFocus=null;
 function escapeHTML(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-const validTag=t=>/^(?:nightly-\d{8}T\d{6}Z-[0-9a-f]{12}|v\d+\.\d+\.\d+)$/.test(t);
+const validTag=t=>typeof t==='string'&&releaseConfig.channels.some(kind=>releaseConfig.tags[kind].test(t));
+const channelName=kind=>kind==='stable'?'Stable':'Nightly';
 function compareStable(a,b){
   const A=a.slice(1).split('.').map(Number),B=b.slice(1).split('.').map(Number);
   for(let i=0;i<3;i++)if(A[i]!==B[i])return B[i]-A[i];
   return 0;
 }
 function parseRefs(refs){
-  const tags=refs.map(x=>String(x.ref||'').replace(/^refs\/tags\//,'')).filter(validTag);
-  return {stable:tags.filter(t=>t.startsWith('v')).sort(compareStable)[0]||null,
-    nightly:tags.filter(t=>t.startsWith('nightly-')).sort().at(-1)||null};
+  const tags=refs.filter(x=>typeof x?.ref==='string'&&x.ref.startsWith('refs/tags/'))
+    .map(x=>x.ref.slice('refs/tags/'.length)).filter(validTag);
+  return {stable:tags.filter(t=>releaseConfig.tags.stable.test(t)).sort(compareStable)[0]||null,
+    nightly:tags.filter(t=>releaseConfig.tags.nightly.test(t)).sort().at(-1)||null};
 }
 function releaseFor(g,channel=currentChannel){
   const data=RELEASES[g.repo];
-  if(!data||data.error)return null;
+  if(data?.status!=='ready')return null;
   const kind=channel==='all'?(data.stable?'stable':'nightly'):channel;
   const tag=data[kind];
-  return tag?{channel:kind,tag,url:`https://rawcdn.githack.com/${OWNER}/${g.repo}/${encodeURIComponent(tag)}/index.html`}:null;
+  return tag?{channel:kind,tag,url:`https://rawcdn.githack.com/${releaseConfig.owner}/${g.repo}/${encodeURIComponent(tag)}/index.html`}:null;
+}
+function captureFocus(){
+  const element=document.activeElement;
+  return {element,key:element?.dataset?.focusKey||null};
+}
+function restoreFocus(saved,fallback=null){
+  const target=saved?.element&&document.contains(saved.element)?saved.element:
+    saved?.key?Array.from(document.querySelectorAll('[data-focus-key]')).find(element=>element.dataset.focusKey===saved.key):null;
+  if(target&&!target.disabled&&!target.hidden)target.focus({preventScroll:true});
+  else if(fallback)fallback.focus({preventScroll:true});
 }
 function gameHref(g){const rel=releaseFor(g);return '#/game/'+g.id+(rel?'/'+rel.channel:'');}
-function versionName(g){const rel=releaseFor(g);return rel?rel.tag.replace(/^nightly-/, 'Nightly · '):RELEASES[g.repo]?.error?'조회 실패':'릴리즈 준비 중';}
-function channelStatus(g){
-  const rel=releaseFor(g);
-  if(rel)return rel.channel==='stable'?'검증·승인 릴리즈':'개발 스냅샷 · 실행 미보장';
-  if(RELEASES[g.repo]?.error)return '태그 조회 실패';
-  return tagsPending?'태그 조회 중':'해당 릴리즈 없음';
+function versionName(g){
+  const data=RELEASES[g.repo],rel=releaseFor(g);
+  if(data.status==='loading')return '태그 조회 중';
+  if(data.status==='error')return '태그 조회 실패';
+  return rel?rel.tag.replace(/^nightly-/,'Nightly · '):'등록된 태그 없음';
 }
-function chip(g){const rel=releaseFor(g);const cl=rel?.channel||'untagged';return `<span class="release-chip ${cl}"><span class="tiny-dot"></span>${rel?rel.channel.toUpperCase():'태그 미확인'}</span>`;}
-function card(g){return `<article class="game-card"><a class="card-art" href="${gameHref(g)}" aria-label="${escapeHTML(g.title)} 릴리즈 상세 보기">${art(g.art,g.id)}<span class="art-badge"><span class="tiny-dot"></span> RELEASE SNAPSHOT</span><span class="art-open">${arrowIcon}</span></a><div class="card-main"><div class="card-topline"><span>${escapeHTML(g.genreName)}</span><i></i>${chip(g)}</div><h3 class="card-title">${escapeHTML(g.title)}<small>${escapeHTML(g.en)}</small></h3><p class="card-description">${escapeHTML(g.desc)}</p><div class="tag-list">${g.tag.map(s=>`<span class="tag">${escapeHTML(s)}</span>`).join('')}</div><p class="release-state ${releaseFor(g)?.channel==='nightly'?'warning':''}">${escapeHTML(channelStatus(g))}</p><div class="card-bottom"><span class="card-status">${escapeHTML(versionName(g))}</span><a class="card-more" href="${gameHref(g)}">상세 ${arrowIcon}</a></div></div></article>`;}
+function channelStatus(g){
+  const data=RELEASES[g.repo],rel=releaseFor(g);
+  if(data.status==='loading')return '릴리즈 정보를 확인하고 있어요';
+  if(data.status==='error')return '릴리즈 정보를 확인하지 못했어요';
+  if(rel)return rel.channel==='stable'?'검증·승인 릴리즈':'개발 스냅샷 · 실행 미보장';
+  return currentChannel==='all'?'릴리즈 미등록':`${channelName(currentChannel)} 미등록`;
+}
+function chip(g){
+  const data=RELEASES[g.repo],rel=releaseFor(g);
+  const label=rel?rel.channel.toUpperCase():data.status==='loading'?'조회 중':data.status==='error'?'조회 실패':'미등록';
+  return `<span class="release-chip ${rel?.channel||'untagged'}"><span class="tiny-dot"></span>${label}</span>`;
+}
+function card(g){return `<article class="game-card"><a class="card-art" href="${gameHref(g)}" data-focus-key="game-${g.id}-art" aria-label="${escapeHTML(g.title)} 릴리즈 상세 보기">${art(g.art,g.id)}<span class="art-badge"><span class="tiny-dot"></span> RELEASE SNAPSHOT</span><span class="art-open">${arrowIcon}</span></a><div class="card-main"><div class="card-topline"><span>${escapeHTML(g.genreName)}</span><i></i>${chip(g)}</div><h3 class="card-title">${escapeHTML(g.title)}<small>${escapeHTML(g.en)}</small></h3><p class="card-description">${escapeHTML(g.desc)}</p><div class="tag-list">${g.tag.map(s=>`<span class="tag">${escapeHTML(s)}</span>`).join('')}</div><p class="release-state ${releaseFor(g)?.channel==='nightly'?'warning':''}">${escapeHTML(channelStatus(g))}</p><div class="card-bottom"><span class="card-status">${escapeHTML(versionName(g))}</span><a class="card-more" href="${gameHref(g)}" data-focus-key="game-${g.id}-details">상세 ${arrowIcon}</a></div></div></article>`;}
 function render(){
   const q=searchInput.value.toLocaleLowerCase('ko-KR').trim();
-  const list=GAMES.filter(x=>(currentFilter==='all'||currentFilter===x.genre)&&
-    (currentChannel==='all'||!!releaseFor(x,currentChannel))&&
-    (!q||[x.title,x.en,x.genreName,x.desc,...x.tag].join(' ').toLocaleLowerCase('ko-KR').includes(q)));
-  grid.innerHTML=list.map(card).join('');empty.classList.toggle('show',!list.length);grid.hidden=!list.length;
-  empty.querySelector('b').textContent=tagsPending&&currentChannel!=='all'?'릴리즈 정보를 확인하고 있어요.':`이 조건에 맞는 ${currentChannel==='stable'?'Stable':currentChannel==='nightly'?'Nightly':'게임'}이 없어요.`;
+  const matching=GAMES.filter(g=>(currentFilter==='all'||currentFilter===g.genre)&&
+    (!q||[g.title,g.en,g.genreName,g.desc,...g.tag].join(' ').toLocaleLowerCase('ko-KR').includes(q)));
+  const list=matching.filter(g=>currentChannel==='all'||!!releaseFor(g,currentChannel));
+  const markup=list.map(card).join('');
+  if(rendered.grid!==markup){
+    const focus=grid.contains(document.activeElement)?captureFocus():null;
+    grid.innerHTML=markup;rendered.grid=markup;
+    if(focus&&!dialog.open)restoreFocus(focus,searchInput);
+  }
+  empty.classList.toggle('show',!list.length);grid.hidden=!list.length;
+  const pending=matching.some(g=>RELEASES[g.repo].status==='loading');
+  const failed=matching.some(g=>RELEASES[g.repo].status==='error');
+  const unavailable=currentChannel!=='all'&&!list.length;
+  empty.querySelector('b').textContent=unavailable&&pending?'릴리즈 정보를 확인하고 있어요.':
+    unavailable&&failed?'일부 게임의 릴리즈 정보를 확인하지 못했어요.':
+    `이 조건에 맞는 ${currentChannel==='all'?'게임':channelName(currentChannel)}이 없어요.`;
+  document.getElementById('emptyDescription').textContent=unavailable&&pending?'조회가 끝난 게임부터 표시합니다.':
+    unavailable&&failed?'실패한 조회를 다시 시도해 주세요.':'다른 채널이나 장르, 검색어로 찾아보세요.';
   countText.innerHTML=`총 <strong>${list.length}개</strong>의 게임이 표시되고 있어요`;
-  const stable=GAMES.filter(x=>RELEASES[x.repo]?.stable).length,nightly=GAMES.filter(x=>RELEASES[x.repo]?.nightly).length;
-  channelNote.innerHTML=tagsPending?'GitHub 태그를 불러오는 중…':`<strong>Stable ${stable}</strong> · <strong>Nightly ${nightly}</strong> · 태그 미확인 ${GAMES.length-GAMES.filter(x=>RELEASES[x.repo]?.stable||RELEASES[x.repo]?.nightly).length}`;
+  const counts={stable:0,nightly:0,loading:0,error:0,unregistered:0};
+  for(const g of GAMES){
+    const data=RELEASES[g.repo];
+    if(data.status==='ready'){
+      if(data.stable)counts.stable++;
+      if(data.nightly)counts.nightly++;
+      if(!data.stable&&!data.nightly)counts.unregistered++;
+    }else counts[data.status]++;
+  }
+  const parts=[`<strong>Stable ${counts.stable}</strong>`,`<strong>Nightly ${counts.nightly}</strong>`];
+  if(counts.loading)parts.push(`조회 중 ${counts.loading}`);
+  if(counts.error)parts.push(`조회 실패 ${counts.error}`);
+  if(counts.unregistered)parts.push(`미등록 ${counts.unregistered}`);
+  channelNote.innerHTML=parts.join(' · ');
+  retryReleases.hidden=!counts.error&&!releaseRetries.size;
+  retryReleases.disabled=releaseRetries.size>0;
+  if(retryReleases.hidden&&document.activeElement===retryReleases)
+    document.querySelector(`[data-channel="${currentChannel}"]`).focus({preventScroll:true});
 }
 function selectChannel(channel){
   currentChannel=channel;
@@ -350,62 +410,124 @@ searchInput.addEventListener('input',render);
 document.getElementById('resetBtn').addEventListener('click',()=>{currentFilter='all';searchInput.value='';selectChannel('all');document.querySelectorAll('[data-filter]').forEach(v=>v.setAttribute('aria-pressed',String(v.dataset.filter==='all')));searchInput.focus();});
 document.getElementById('featuredArt').innerHTML=art('rally','hero');
 function showGame(g,requestedChannel){
-  const data=RELEASES[g.repo]||{};
-  const choices=['stable','nightly'];
-  const active=choices.includes(requestedChannel)&&data[requestedChannel]?requestedChannel:releaseFor(g)?.channel||'stable';
-  const rel=releaseFor(g,active);
-  const switches=choices.map(kind=>{
-    const tag=data[kind];
-    return `<button type="button" class="channel-option" data-detail-channel="${kind}" ${!tag?'disabled':''} aria-pressed="${String(active===kind)}">${kind==='stable'?'Stable':'Nightly'}${tag?' · '+escapeHTML(tag):' · 미등록'}</button>`;
+  const data=RELEASES[g.repo];
+  const active=releaseConfig.channels.includes(requestedChannel)?requestedChannel:releaseFor(g,'all')?.channel||'stable';
+  const rel=releaseFor(g,active),retrying=releaseRetries.has(g.repo);
+  const view=JSON.stringify([g.id,active,data.status,data.stable,data.nightly,retrying]);
+  if(dialog.open&&rendered.detail===view)return;
+  const wasOpen=dialog.open,focus=wasOpen?captureFocus():null,scrollTop=dialog.scrollTop;
+  if(!wasOpen)previousFocus=captureFocus();
+  const lookupLabel=data.status==='loading'?'조회 중':data.status==='error'?'조회 실패':'미등록';
+  const switches=releaseConfig.channels.map(kind=>{
+    const tag=data.status==='ready'?data[kind]:null;
+    return `<button type="button" class="channel-option" data-detail-channel="${kind}" data-focus-key="detail-${g.id}-${kind}" ${!tag?'disabled':''} aria-pressed="${String(active===kind)}">${channelName(kind)} · ${tag?escapeHTML(tag):lookupLabel}</button>`;
   }).join('');
-  document.getElementById('dialogImage').innerHTML=art(g.art,'dialog-'+g.id)+`<span class="art-caption">CONCEPT VISUAL / 시안용 그래픽</span>`;
-  const primary=rel?`<a class="btn btn-main" href="${rel.url}" target="_blank" rel="noopener noreferrer">${playIcon} ${rel.channel==='stable'?'Stable':'Nightly'} 스냅샷 열기</a>`:
-    `<span class="btn btn-main disabled" aria-disabled="true">실행 태그 없음</span>`;
-  const warning=rel?.channel==='nightly'?`<p class="channel-warning">Nightly는 개발 중인 소스 스냅샷입니다. 정상 작동하지 않을 수 있고 저장·멀티플레이 호환성을 보장하지 않습니다.</p>`:
-    (rel?'<p class="channel-warning">Stable은 승인 태그 기준이지만, 무료 프리뷰 호스팅의 정상 접속까지 보장하는 것은 아닙니다.</p>':'<p class="channel-warning">이 게임은 아직 조회 가능한 릴리즈 태그가 없습니다. GitHub 원본과 기존 공개 Pages를 확인할 수 있습니다.</p>');
-  document.getElementById('dialogContent').innerHTML=`<p class="dialog-eyebrow">${escapeHTML(g.genreName).toUpperCase()} / BLOOM PLAYGROUND</p><h2 id="dialogTitle">${escapeHTML(g.title)}</h2><p class="dialog-eng">${escapeHTML(g.en)}</p><p class="dialog-description">${escapeHTML(g.desc)}</p><p class="channel-loading">릴리즈 채널 선택</p><div class="channel-switch">${switches}</div>${warning}<dl class="dialog-info"><div><dt>채널</dt><dd>${rel?rel.channel.toUpperCase():'미등록'}</dd></div><div><dt>Git 태그</dt><dd>${rel?escapeHTML(rel.tag):'없음'}</dd></div><div><dt>플랫폼</dt><dd>웹 브라우저</dd></div></dl><ul class="dialog-desc-list">${g.point.map(s=>`<li>${escapeHTML(s)}</li>`).join('')}</ul><div class="dialog-actions">${primary}<a class="btn btn-ghost" href="https://github.com/${OWNER}/${encodeURIComponent(g.repo)}" target="_blank" rel="noopener noreferrer">GitHub 소스 ${arrowIcon}</a><a class="text-link" href="${g.url}" target="_blank" rel="noopener noreferrer">기존 Pages 열기 ${arrowIcon}</a></div><p class="channel-technical">태그별 HTML은 GitHack 정적 프리뷰로 엽니다. 외부 호스팅 장애·CORS·외부 SDK 정책으로 실행이 실패할 수 있습니다. 기존 Pages 링크는 <b>같은 태그의 스냅샷을 보장하지 않습니다.</b></p>`;
-  document.querySelectorAll('[data-detail-channel]').forEach(b=>b.addEventListener('click',()=>{const ch=b.dataset.detailChannel;if(data[ch]){location.hash=`#/game/${g.id}/${ch}`;showGame(g,ch);}}));
-  if(!dialog.open){previousFocus=document.activeElement;dialog.showModal();}
-  dialogClose.focus();
+  if(rendered.gameId!==g.id)document.getElementById('dialogImage').innerHTML=art(g.art,'dialog-'+g.id)+`<span class="art-caption">CONCEPT VISUAL / 시안용 그래픽</span>`;
+  const primary=rel?`<a class="btn btn-main" href="${rel.url}" data-focus-key="detail-${g.id}-play" target="_blank" rel="noopener noreferrer">${playIcon} ${channelName(rel.channel)} 스냅샷 열기</a>`:
+    `<span class="btn btn-main disabled" aria-disabled="true">${data.status==='ready'?channelName(active)+' 미등록':'릴리즈 '+lookupLabel}</span>`;
+  let message;
+  if(data.status==='loading')message='릴리즈 정보를 확인하고 있습니다.';
+  else if(data.status==='error')message='릴리즈 정보를 불러오지 못했습니다. 다시 조회해 주세요.';
+  else if(!rel)message=`이 게임의 ${channelName(active)} 릴리즈는 아직 등록되지 않았습니다.`;
+  else if(rel.channel==='nightly')message='Nightly는 개발 중인 소스 스냅샷입니다. 정상 작동하지 않을 수 있고 저장·멀티플레이 호환성을 보장하지 않습니다.';
+  else message='Stable은 검증·승인한 릴리즈입니다.';
+  const retry=data.status==='error'||retrying?`<button type="button" class="btn btn-ghost" data-retry-release="${g.repo}" data-focus-key="detail-${g.id}-retry" ${retrying?'disabled':''}>실패한 조회 다시 시도</button>`:'';
+  const source=`https://github.com/${releaseConfig.owner}/${g.repo}`+(rel?`/tree/${encodeURIComponent(rel.tag)}`:'');
+  document.getElementById('dialogContent').innerHTML=`<p class="dialog-eyebrow">${escapeHTML(g.genreName).toUpperCase()} / BLOOM PLAYGROUND</p><h2 id="dialogTitle" tabindex="-1" data-focus-key="detail-${g.id}-title">${escapeHTML(g.title)}</h2><p class="dialog-eng">${escapeHTML(g.en)}</p><p class="dialog-description">${escapeHTML(g.desc)}</p><p class="channel-loading">릴리즈 채널 선택</p><div class="channel-switch">${switches}</div><p class="channel-warning" role="status">${message}</p><dl class="dialog-info"><div><dt>채널</dt><dd>${active.toUpperCase()}</dd></div><div><dt>Git 태그</dt><dd>${rel?escapeHTML(rel.tag):lookupLabel}</dd></div><div><dt>플랫폼</dt><dd>웹 브라우저</dd></div></dl><ul class="dialog-desc-list">${g.point.map(s=>`<li>${escapeHTML(s)}</li>`).join('')}</ul><div class="dialog-actions">${primary}${retry}<a class="btn btn-ghost" href="${source}" data-focus-key="detail-${g.id}-source" target="_blank" rel="noopener noreferrer">GitHub 소스 ${arrowIcon}</a><a class="text-link" href="${g.url}" data-focus-key="detail-${g.id}-pages" target="_blank" rel="noopener noreferrer">기존 Pages 열기 ${arrowIcon}</a></div><p class="channel-technical">태그별 HTML은 GitHack 정적 프리뷰로 엽니다. 외부 호스팅 장애·CORS·외부 SDK 정책으로 실행이 실패할 수 있습니다. 기존 Pages 링크는 <b>같은 태그의 스냅샷을 보장하지 않습니다.</b></p>`;
+  rendered.detail=view;rendered.gameId=g.id;
+  if(!wasOpen){dialog.showModal();dialogClose.focus({preventScroll:true});}
+  else{
+    dialog.scrollTop=scrollTop;
+    restoreFocus(focus,document.getElementById('dialogTitle'));
+  }
 }
 function syncRoute(){
   const match=location.hash.match(/^#\/game\/([a-z0-9-]+)(?:\/(stable|nightly))?$/);
-  const game=match&&GAMES.find(x=>x.id===match[1]);
-  if(game)showGame(game,match[2]);else if(dialog.open)dialog.close();
+  const game=match&&GAMES.find(g=>g.id===match[1]);
+  if(game)showGame(game,match[2]);else if(dialog.open)closeDetail(false);
+}
+function closeDetail(updateRoute=true){
+  if(dialog.open)dialog.close();
+  if(updateRoute&&/^#\/game\//.test(location.hash)){
+    try{history.replaceState({},'',location.pathname+location.search+'#games');}
+    catch(_){location.hash='#games';}
+  }
+  restoreFocus(previousFocus,searchInput);
+  previousFocus=null;rendered.detail=null;
 }
 window.addEventListener('hashchange',syncRoute);window.addEventListener('popstate',syncRoute);
-function closeDetail(){if(dialog.open)dialog.close();if(/^#\/game\//.test(location.hash)){try{history.replaceState({},'',location.pathname+location.search+'#games')}catch(_){location.hash='#games'}}if(previousFocus&&document.contains(previousFocus)){previousFocus.focus({preventScroll:true});}previousFocus=null;}
-dialogClose.addEventListener('click',closeDetail);
-dialog.addEventListener('cancel',e=>{e.preventDefault();closeDetail();});dialog.addEventListener('click',e=>{if(e.target===dialog)closeDetail();});
-const cacheKey='bloom-playground-releases-v2';
-async function loadReleases(){
-  let cached=null;
-  try{cached=JSON.parse(sessionStorage.getItem(cacheKey)||'null');}catch{}
-  if(cached&&Date.now()-cached.at<300000&&cached.data){Object.assign(RELEASES,cached.data);tagsPending=false;render();syncRoute();return;}
-  await Promise.all(GAMES.map(async g=>{
-    const url=`https://api.github.com/repos/${OWNER}/${encodeURIComponent(g.repo)}/git/matching-refs/tags/`;
-    try{
-      const refs=[];
-      for(let page=1;page<=10;page++){
-        const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),9000);
-        let response;
-        try{response=await fetch(url+`?per_page=100&page=${page}`,{headers:{Accept:'application/vnd.github+json'},signal:controller.signal});}
-        finally{clearTimeout(timeout);}
-        if(!response.ok)throw new Error('GitHub API HTTP '+response.status);
-        const chunk=await response.json();
-        if(!Array.isArray(chunk))throw new Error('Invalid GitHub refs response');
-        refs.push(...chunk);
-        if(chunk.length<100)break;
-      }
-      RELEASES[g.repo]=parseRefs(refs);
-    }catch(error){console.warn('Release lookup unavailable:',g.repo,error);RELEASES[g.repo]={stable:null,nightly:null,error:true};}
-    render();
-  }));
-  tagsPending=false;
-  try{sessionStorage.setItem(cacheKey,JSON.stringify({at:Date.now(),data:RELEASES}));}catch{}
-  render();syncRoute();
+dialogClose.addEventListener('click',()=>closeDetail());
+dialog.addEventListener('cancel',e=>{e.preventDefault();closeDetail();});
+dialog.addEventListener('click',e=>{
+  if(e.target===dialog){closeDetail();return;}
+  const channel=e.target.closest('[data-detail-channel]');
+  if(channel&&!channel.disabled){location.hash=`#/game/${rendered.gameId}/${channel.dataset.detailChannel}`;return;}
+  const retry=e.target.closest('[data-retry-release]');
+  if(retry&&!retry.disabled)retryFailedReleases(retry.dataset.retryRelease);
+});
+retryReleases.addEventListener('click',()=>retryFailedReleases());
+function validCachedRelease(entry,now){
+  return entry&&typeof entry==='object'&&!Array.isArray(entry)&&entry.status==='ready'&&
+    Number.isFinite(entry.checkedAt)&&entry.checkedAt>=0&&entry.checkedAt<=now&&now-entry.checkedAt<releaseConfig.cache.maxAgeMs&&
+    releaseConfig.channels.every(kind=>entry[kind]===null||(typeof entry[kind]==='string'&&releaseConfig.tags[kind].test(entry[kind])));
 }
-render();syncRoute();loadReleases();
+function restoreReleaseCache(){
+  let cache=null;
+  try{cache=JSON.parse(sessionStorage.getItem(releaseConfig.cache.key)||'null');}catch{}
+  const now=Date.now();
+  for(const g of GAMES){
+    if(releaseRequests.has(g.repo))continue;
+    const entry=cache&&typeof cache==='object'&&!Array.isArray(cache)?cache[g.repo]:null;
+    RELEASES[g.repo]=validCachedRelease(entry,now)?
+      {status:'ready',stable:entry.stable,nightly:entry.nightly,checkedAt:entry.checkedAt}:
+      {status:'loading',stable:null,nightly:null};
+  }
+}
+function saveReleaseCache(){
+  const cache={};
+  for(const g of GAMES){
+    const data=RELEASES[g.repo];
+    if(data.status==='ready')cache[g.repo]={status:'ready',stable:data.stable,nightly:data.nightly,checkedAt:data.checkedAt};
+  }
+  try{sessionStorage.setItem(releaseConfig.cache.key,JSON.stringify(cache));}catch{}
+}
+async function requestRelease(g){
+  if(releaseRequests.has(g.repo))return;
+  releaseRequests.add(g.repo);
+  const wasLoading=RELEASES[g.repo].status==='loading';
+  RELEASES[g.repo]={status:'loading',stable:null,nightly:null};
+  if(!wasLoading){render();syncRoute();}
+  const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),releaseConfig.request.timeoutMs);
+  try{
+    const url=`https://api.github.com/repos/${releaseConfig.owner}/${encodeURIComponent(g.repo)}/git/matching-refs/tags/`;
+    const response=await fetch(url,{headers:{Accept:'application/vnd.github+json'},signal:controller.signal});
+    if(!response.ok)throw new Error('GitHub API HTTP '+response.status);
+    const refs=await response.json();
+    if(controller.signal.aborted)throw new Error('Release lookup timed out');
+    if(!Array.isArray(refs))throw new Error('Invalid GitHub refs response');
+    RELEASES[g.repo]={status:'ready',...parseRefs(refs),checkedAt:Date.now()};
+  }catch(error){
+    console.warn('Release lookup unavailable:',g.repo,error);
+    RELEASES[g.repo]={status:'error',stable:null,nightly:null};
+  }finally{
+    clearTimeout(timeout);releaseRequests.delete(g.repo);
+  }
+  saveReleaseCache();render();syncRoute();
+}
+async function retryFailedReleases(repo=null){
+  const failed=GAMES.filter(g=>(repo===null||g.repo===repo)&&RELEASES[g.repo].status==='error');
+  if(!failed.length)return;
+  failed.forEach(g=>releaseRetries.add(g.repo));
+  render();syncRoute();
+  try{await Promise.all(failed.map(requestRelease));}
+  finally{failed.forEach(g=>releaseRetries.delete(g.repo));render();syncRoute();}
+}
+async function loadReleases(){
+  restoreReleaseCache();render();syncRoute();
+  await Promise.all(GAMES.filter(g=>RELEASES[g.repo].status!=='ready').map(requestRelease));
+}
+loadReleases();
 </script>
 </body>
 </html>
+
