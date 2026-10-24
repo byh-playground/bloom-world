@@ -41,6 +41,17 @@ async function main(){
  try{
   for(const viewport of [{width:1280,height:800},{width:844,height:390}]){
    const page=await browser.newPage({viewport});
+   if(NAME==='bloom-digmori'){
+     // The exact published compat physics engine, not a mock. CI otherwise stalls on large third-party CDN ESM downloads.
+     const rapierFile=path.resolve('node_modules/@dimforge/rapier3d-deterministic-compat/dist/rapier.mjs');
+     if(!fs.existsSync(rapierFile))throw new Error('Pinned Rapier module absent: '+rapierFile);
+     const physicsBytes=fs.readFileSync(rapierFile);
+     await page.route(/^https:\/\/(?:cdn\.jsdelivr\.net\/npm\/|unpkg\.com\/)@dimforge\/rapier3d-deterministic-compat@0\.21\.0\/dist\/rapier\.mjs(?:\?.*)?$/,async route=>{
+       console.log('PINNED_RAPIER_FROM_NPM',physicsBytes.length,route.request().url().slice(0,150));
+       await route.fulfill({status:200,contentType:'text/javascript',headers:{'Access-Control-Allow-Origin':'*','Cache-Control':'no-store'},body:physicsBytes});
+     });
+   }
+
    page.setDefaultTimeout(20000);
    const errors=[];
    page.on('pageerror',error=>{errors.push(error.message);console.log('PAGEERROR',error.stack||error.message);});
