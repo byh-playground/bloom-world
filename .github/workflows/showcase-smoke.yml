@@ -8,6 +8,9 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: bloom-showcase-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   showcase:
     runs-on: ubuntu-24.04
