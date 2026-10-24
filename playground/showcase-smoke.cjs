@@ -11,7 +11,7 @@ const MIME = {'.html':'text/html; charset=utf-8','.js':'text/javascript; charset
 const server = http.createServer((req,res)=>{
   const pathname=new URL(req.url,'http://localhost').pathname;
   let relative;
-  try {relative=decodeURIComponent(pathname)==='/'?'index.html':decodeURIComponent(pathname).replace(/^\\/+/, '');}
+  try { const decoded=decodeURIComponent(pathname); relative=decoded==='/'?'index.html':decoded.startsWith('/')?decoded.slice(1):decoded; }
   catch {res.writeHead(400).end();return;}
   const file=path.resolve(ROOT,relative);
   if (!file.startsWith(ROOT+path.sep)) {res.writeHead(403).end();return;}
