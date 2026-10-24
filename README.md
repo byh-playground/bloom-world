@@ -2,7 +2,7 @@
 
 여러 게임에서 공유하는 블룸 세계관 설정의 원본 저장소입니다.
 
-[세계관 위키 읽기](https://byh-playground.github.io/bloom-world/) · [HTML 원본](index.html)
+[세계관 위키 읽기](https://byh-playground.github.io/bloom-world/) · [게임 전시장 BLOOM PLAYGROUND](https://byh-playground.github.io/bloom-world/playground/) · [HTML 원본](index.html)
 
 공통 세계관의 기준은 `index.html` 한 곳에서 관리합니다. 최초 등록본은 제공된 HTML 원문을 그대로 보존했습니다.
 
