@@ -14,6 +14,7 @@ jobs:
     timeout-minutes: 12
     strategy:
       fail-fast: false
+      max-parallel: 3
       matrix:
         game: [squish-born, yarn-mayhem, meow-tumble, bloom-digmori, bloom-sketch-town, budmori-io, rally-frontier]
     steps:
@@ -26,7 +27,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install --no-save --ignore-scripts playwright@1.63.0
+      - run: npm install --no-save --ignore-scripts playwright@1.63.0 @dimforge/rapier3d-deterministic-compat@0.21.0
       - run: npx playwright install --with-deps chromium
       - run: timeout 240s node playground/showcase-smoke.cjs
         env:
