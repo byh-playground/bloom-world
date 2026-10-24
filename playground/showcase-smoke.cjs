@@ -43,7 +43,7 @@ async function main(){
    const page=await browser.newPage({viewport});
    page.setDefaultTimeout(20000);
    const errors=[];
-   page.on('pageerror',error=>{errors.push(error.message);console.log('PAGEERROR',error.message);});
+   page.on('pageerror',error=>{errors.push(error.message);console.log('PAGEERROR',error.stack||error.message);});
    page.on('console',msg=>{if(['error','warning'].includes(msg.type()))console.log('BROWSER',msg.type(),msg.text().slice(0,220));});
    page.on('requestfailed',req=>console.log('NETWORK',req.url().slice(0,145),req.failure()?.errorText));
    try{
@@ -62,11 +62,12 @@ async function main(){
     if(NAME==='meow-tumble')assert.equal(state.game.bodyView,'play','Cat intro starts game');
     if(NAME==='budmori-io')assert.equal(state.game.startHidden,true,'Farm intro starts garden');
     if(NAME==='bloom-digmori')assert.equal(state.game.menuHidden,true,'Digmori intro starts world');
-    await page.locator('#bloom-showcase [data-action=close]').click();
+    const dir=path.resolve('showcase-artifacts');fs.mkdirSync(dir,{recursive:true});
+    try {await page.screenshot({path:path.join(dir,NAME+'-'+viewport.width+'.png'),timeout:6000});}
+    catch(error){console.log('SCREENSHOT_UNAVAILABLE',NAME,error.message.slice(0,200));}
+    await page.locator('#bloom-showcase [data-action=close]').click({timeout:12000});
     assert.equal(await page.locator('#bloom-showcase').isHidden(),true);
     assert.equal(new URL(page.url()).hash,'','Closing cleans route');
-    const dir=path.resolve('showcase-artifacts');fs.mkdirSync(dir,{recursive:true});
-    await page.screenshot({path:path.join(dir,NAME+'-'+viewport.width+'.png')});
     assert.deepEqual(errors,[],'No browser page errors');
     console.log('SHOWCASE_PASS',NAME,viewport.width);
    }finally{await page.close();}
