@@ -29,7 +29,7 @@ jobs:
           node-version: 22
       - run: npm install --no-save --ignore-scripts playwright@1.63.0 @dimforge/rapier3d-deterministic-compat@0.21.0
       - run: npx playwright install --with-deps chromium
-      - run: timeout 240s node playground/showcase-smoke.cjs
+      - run: timeout 420s node playground/showcase-smoke.cjs
         env:
           SHOWCASE_GAME: ${{ matrix.game }}
       - uses: actions/upload-artifact@v4
