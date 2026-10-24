@@ -51,7 +51,11 @@ async function main(){
     assert.equal(result.status(),200);
     await page.locator('#bloom-showcase:not([hidden])').waitFor({state:'visible',timeout:30000});
     await page.locator('#bloom-showcase iframe').waitFor({state:'attached',timeout:30000});
-    await page.waitForTimeout(8500);
+    await page.waitForFunction(() => {
+      const caption=document.querySelector('#bloom-showcase [data-copy]')?.textContent;
+      return !!caption && caption!=='실제 플레이 소개' && caption!=='소개를 실행하지 못했습니다';
+    }, null, {timeout:95000});
+    await page.waitForTimeout(5800);
     const state=await probe(page);
     console.log('GAME_SHOWCASE_STATE',NAME,JSON.stringify(viewport),JSON.stringify(state).slice(0,1500));
     assert.ok(state.hostCaption && !['실제 플레이 소개','소개를 실행하지 못했습니다'].includes(state.hostCaption),'A real chapter must play');
