@@ -62,6 +62,25 @@ async function main(){
     assert.equal(result.status(),200);
     await page.locator('#bloom-showcase:not([hidden])').waitFor({state:'visible',timeout:30000});
     await page.locator('#bloom-showcase iframe').waitFor({state:'attached',timeout:30000});
+    let DIAGNOSTIC_TIMER=null;
+    if(NAME==='bloom-digmori'){
+      const diagnose=()=>page.evaluate(()=>{
+        const parent=document.querySelector('#bloom-showcase');
+        const child=parent?.querySelector('iframe')?.contentDocument;
+        return {
+          caption:parent?.querySelector('[data-copy]')?.textContent,
+          subtitle:parent?.querySelector('[data-sub]')?.textContent,
+          player:parent?.querySelector('[data-time]')?.textContent,
+          childReadyState:child?.readyState,
+          status:child?.querySelector('#load-status')?.textContent,
+          title:child?.querySelector('#load-title')?.textContent,
+          retryVisible:child?.querySelector('#load-retry')?.hidden===false,
+          gameReady:!!child?.defaultView?.Bloom?.app,
+          diagnostics:child?.defaultView?.BloomDiagnostics?.snapshot?.counts,
+        };
+      }).then(state=>console.log('DIGMORI_BOOT_PROBE',JSON.stringify(state))).catch(e=>console.log('DIGMORI_PROBE_ERROR',String(e)));
+      DIAGNOSTIC_TIMER=setInterval(diagnose,20000);
+    }
     await page.waitForFunction(() => {
       const caption=document.querySelector('#bloom-showcase [data-copy]')?.textContent;
       return !!caption && caption!=='실제 플레이 소개' && caption!=='소개를 실행하지 못했습니다';
@@ -97,7 +116,7 @@ async function main(){
     assert.equal(new URL(page.url()).hash,'','Closing cleans route');
     assert.deepEqual(errors,[],'No browser page errors');
     console.log('SHOWCASE_PASS',NAME,viewport.width);
-   }finally{await page.close();}
+   }finally{if(DIAGNOSTIC_TIMER)clearInterval(DIAGNOSTIC_TIMER);await page.close();}
   }
  }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
 }
