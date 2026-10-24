@@ -19,13 +19,13 @@ jobs:
       fail-fast: false
       max-parallel: 3
       matrix:
-        game: [bloom-digmori]
+        game: [squish-born, yarn-mayhem, meow-tumble, bloom-digmori, bloom-sketch-town, budmori-io, rally-frontier]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
         with:
           repository: byh-playground/${{ matrix.game }}
-          ref: ${{ matrix.game == 'budmori-io' && 'codex/live-showcase-budmori-rebase-20261025' || 'codex/live-showcase-intro-20261024' }}
+          ref: main
           path: game
       - uses: actions/setup-node@v4
         with:
