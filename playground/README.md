@@ -2,7 +2,7 @@
 
 게임 전시 페이지: [BLOOM PLAYGROUND](https://byh-playground.github.io/bloom-world/playground/)
 
-이 폴더의 **`index.html`만** 전시 사이트의 원본입니다. 게임 파일이나 배포용 번들은 여기에 복사하지 않습니다.
+이 폴더의 **`index.html`만** 전시 사이트의 원본입니다. 게임 저장소가 제공해야 하는 `bloom-game.json`의 규격은 [MANIFEST.md](MANIFEST.md)와 [스키마](bloom-game.schema.json)가 원본입니다. 게임 파일이나 배포용 번들은 여기에 복사하지 않습니다.
 
 ## 릴리즈 표시
 
