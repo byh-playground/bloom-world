@@ -31,6 +31,7 @@ GitHub Pages는 `access-control-allow-origin: *`로 응답하므로 브라우저
     "알과 동료를 모으는 성장 시스템",
     "다양한 적과 물리 기반 충돌"
   ],
+  "showcase": "https://byh-playground.github.io/bloom-bounko/#/showcase",
   "stable": { "version": "0.19.0", "sha": "0123456789abcdef0123456789abcdef01234567" }
 }
 ```
@@ -45,6 +46,7 @@ GitHub Pages는 `access-control-allow-origin: *`로 응답하므로 브라우저
 | `tags` | 필수 | 짧은 키워드 1~3개, 각 16자 이하, 중복 금지 |
 | `desc` | 필수 | 한두 문장 소개, 80자 이하. 평이한 문장으로 쓰고 전문용어·과장을 피합니다 |
 | `points` | 필수 | 특징 **정확히 3개**, 각 40자 이하 |
+| `showcase` | 선택 | 게임 소개 화면의 **https 전체 주소**(200자 이하). 없으면 소개 화면이 없는 게임이며 플레이그라운드는 소개 보기 버튼을 숨깁니다. 주소 형식을 추측해서 만들지 않습니다 |
 | `stable` | 선택 | 승인된 Stable. 없으면 Stable 미등록 |
 | `stable.version` | `stable` 있으면 필수 | `X.Y.Z` (접두어 `v` 없이). 태그는 `v` + 이 값 |
 | `stable.sha` | `stable` 있으면 필수 | 태그가 가리키는 **40자 전체 커밋 SHA** |
@@ -84,6 +86,7 @@ Stable 태그는 사람이 `release-tags.yml`을 수동 실행해서 만듭니�
 ## 읽는 쪽(플레이그라운드) 동작 약속
 
 - 게시본을 가져와 스키마로 검증합니다. 파일이 없거나(404), 파싱·검증에 실패하면 그 게임 카드는 **"정보 조회 실패"로 표시**하고, 이전 값이나 추정값으로 채우지 않습니다.
+- `showcase`가 있으면 그 주소를 그대로 소개 보기에 연결하고, 없으면 버튼을 숨깁니다(`#/showcase` 같은 경로를 임의로 붙이지 않습니다).
 - `nightly`가 있으면 Nightly 실행 주소는 그 게임의 Pages 주소입니다. `stable`이 있으면 Stable 실행 주소는 `v<version>` 태그의 정적 미리보기입니다.
 - 로딩·실패·미등록을 구분합니다. `stable` 필드가 없는 것은 "미등록"이고, 파일을 못 읽은 것은 "조회 실패"입니다.
 

@@ -26,6 +26,7 @@
       "maxItems": 3,
       "items": { "type": "string", "minLength": 1, "maxLength": 40 }
     },
+    "showcase": { "type": "string", "pattern": "^https://\\S+$", "maxLength": 200 },
     "stable": {
       "type": "object",
       "additionalProperties": false,
