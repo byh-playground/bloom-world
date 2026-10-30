@@ -241,7 +241,7 @@ const GAMES=[
   {id:'bloom-bounko',source:'manifest',repo:'bloom-bounko',url:'https://byh-playground.github.io/bloom-bounko/',art:'bounko'},
   {id:'bloom-digmori',source:'manifest',repo:'bloom-digmori',url:'https://byh-playground.github.io/bloom-digmori/',art:'digmori'},
   {id:'meow-tumble',source:'manifest',repo:'meow-tumble',url:'https://byh-playground.github.io/meow-tumble/',art:'meow'},
-  {id:'budmori-io',title:'버드모리',en:'BUDMORI',genre:'strategy',genreName:'전략',version:'태그 조회 중',status:'릴리즈 정보 확인 중',tag:['농장','번식·합체','보스 레이드'],desc:'농장에서 병력을 키우고 합체시켜 보스와 싸우는 전략 게임입니다.',point:['먹이와 번식으로 병력 육성','합체와 병종 성장의 조합','다양한 능력을 활용하는 보스 전투'],url:'https://byh-playground.github.io/budmori-io/',repo:'budmori-io',art:'budmori'},
+  {id:'budmori-io',source:'manifest',repo:'budmori-io',url:'https://byh-playground.github.io/budmori-io/',art:'budmori'},
   {id:'yarn-mayhem',source:'manifest',repo:'yarn-mayhem',url:'https://byh-playground.github.io/yarn-mayhem/',art:'yarn'},
   {id:'squish-born',source:'manifest',repo:'squish-born',url:'https://byh-playground.github.io/squish-born/',art:'squish'}
 ];
@@ -312,19 +312,7 @@ const releaseRequests=new Set(),releaseRetries=new Set();
 const rendered={grid:null,detail:null,gameId:null};
 let currentFilter='all',currentChannel='all',previousFocus=null;
 function escapeHTML(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-const validTag=t=>typeof t==='string'&&releaseConfig.channels.some(kind=>releaseConfig.tags[kind].test(t));
 const channelName=kind=>kind==='stable'?'Stable':'Nightly';
-function compareStable(a,b){
-  const A=a.slice(1).split('.').map(Number),B=b.slice(1).split('.').map(Number);
-  for(let i=0;i<3;i++)if(A[i]!==B[i])return B[i]-A[i];
-  return 0;
-}
-function parseRefs(refs){
-  const tags=refs.filter(x=>typeof x?.ref==='string'&&x.ref.startsWith('refs/tags/'))
-    .map(x=>x.ref.slice('refs/tags/'.length)).filter(validTag);
-  return {stable:tags.filter(t=>releaseConfig.tags.stable.test(t)).sort(compareStable)[0]||null,
-    nightly:tags.filter(t=>releaseConfig.tags.nightly.test(t)).sort().at(-1)||null};
-}
 const manifestText=(v,max)=>typeof v==='string'&&v.length>0&&v.length<=max;
 // playground/MANIFEST.md 규격(게시본)을 검증한다. 모르는 필드는 무시하고, 어긋나면 던진다.
 function parseManifest(m){
@@ -533,26 +521,16 @@ async function requestRelease(g){
   if(!wasLoading){render();syncRoute();}
   const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),releaseConfig.request.timeoutMs);
   try{
-    if(g.source==='manifest'){
-      const response=await fetch(g.url+'bloom-game.json',{headers:{Accept:'application/json'},signal:controller.signal});
-      if(!response.ok)throw new Error('bloom-game.json HTTP '+response.status);
-      const raw=await response.json();
-      if(controller.signal.aborted)throw new Error('Release lookup timed out');
-      const parsed=parseManifest(raw);
-      Object.assign(g,parsed.info);
-      RELEASES[g.repo]={status:'ready',stable:parsed.stable,nightly:parsed.nightly,checkedAt:Date.now(),manifest:raw};
-    }else{
-      const url=`https://api.github.com/repos/${releaseConfig.owner}/${encodeURIComponent(g.repo)}/git/matching-refs/tags/`;
-      const response=await fetch(url,{headers:{Accept:'application/vnd.github+json'},signal:controller.signal});
-      if(!response.ok)throw new Error('GitHub API HTTP '+response.status);
-      const refs=await response.json();
-      if(controller.signal.aborted)throw new Error('Release lookup timed out');
-      if(!Array.isArray(refs))throw new Error('Invalid GitHub refs response');
-      RELEASES[g.repo]={status:'ready',...parseRefs(refs),checkedAt:Date.now()};
-    }
+    const response=await fetch(g.url+'bloom-game.json',{headers:{Accept:'application/json'},signal:controller.signal});
+    if(!response.ok)throw new Error('bloom-game.json HTTP '+response.status);
+    const raw=await response.json();
+    if(controller.signal.aborted)throw new Error('Release lookup timed out');
+    const parsed=parseManifest(raw);
+    Object.assign(g,parsed.info);
+    RELEASES[g.repo]={status:'ready',stable:parsed.stable,nightly:parsed.nightly,checkedAt:Date.now(),manifest:raw};
   }catch(error){
     console.warn('Release lookup unavailable:',g.repo,error);
-    if(g.source==='manifest')resetManifestInfo(g,'게임 정보를 불러오지 못했습니다.');
+    resetManifestInfo(g,'게임 정보를 불러오지 못했습니다.');
     RELEASES[g.repo]={status:'error',stable:null,nightly:null};
   }finally{
     clearTimeout(timeout);releaseRequests.delete(g.repo);
