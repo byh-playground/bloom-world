@@ -22,7 +22,7 @@
 
 ## 게임 정보 읽기 (전환 중)
 
-- `GAMES` 항목에 `source:'manifest'`가 있는 게임은 설명과 릴리즈 정보를 `https://byh-playground.github.io/<저장소>/bloom-game.json`(게시본)에서 읽습니다. 규격은 [MANIFEST.md](MANIFEST.md)입니다. 지금은 **바운코만** 해당하고, 나머지는 `GAMES` 배열의 설명과 GitHub 태그 API를 씁니다.
+- `GAMES` 항목에 `source:'manifest'`가 있는 게임은 설명과 릴리즈 정보를 `https://byh-playground.github.io/<저장소>/bloom-game.json`(게시본)에서 읽습니다. 규격은 [MANIFEST.md](MANIFEST.md)입니다. 지금은 **8개 중 7개**(버드모리 제외)가 해당하고, 버드모리는 `GAMES` 배열의 설명과 GitHub 태그 API를 씁니다.
 - 매니페스트 게임은 GitHub API를 호출하지 않습니다. Nightly는 파일의 `nightly` 값을 표시하고 실행은 게임의 GitHub Pages(`main` 최신)이며, Stable은 `stable.version`의 `v` 태그를 GitHack에서 미리보기합니다. 소개 보기는 `showcase` 주소를 그대로 쓰고 없으면 버튼을 숨깁니다.
 - 파일을 못 받거나 규격에 맞지 않으면 그 카드는 `조회 실패`와 "게임 정보를 불러오지 못했습니다"로 표시하며, 이전 값이나 `GAMES`의 값으로 채우지 않습니다. 성공한 게시본 원문은 `bloom-playground-releases-v4`에 5분간 캐싱하고 읽을 때 다시 검증합니다.
 

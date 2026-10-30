@@ -236,14 +236,14 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
 const arrowIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 19 19 5M8 5h11v11"/></svg>';
 const playIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="m9 6 10 6-10 6V6Z" stroke-linejoin="round"/></svg>';
 const GAMES=[
-  {id:'rally-frontier',title:'랠리 프론티어',en:'RALLY FRONTIER',genre:'strategy',genreName:'전략',version:'태그 조회 중',status:'릴리즈 정보 확인 중',tag:['실시간 전략','군체전','멀티플레이'],desc:'다수의 유닛과 병종을 지휘하는 실시간 전략 게임입니다.',point:['다양한 병종을 배치하고 전투 흐름에 개입','싱글·멀티플레이 군체전','BLOOM 세계관의 문명과 병종'],url:'https://byh-playground.github.io/rally-frontier/',repo:'rally-frontier',art:'rally'},
-  {id:'bloom-sketch-town',title:'스케치 타운',en:'SKETCH TOWN',genre:'action',genreName:'액션',version:'태그 조회 중',status:'릴리즈 정보 확인 중',tag:['액션 RPG','스케치 마법','멀티플레이'],desc:'선과 도형을 그려 마법을 사용하고 지역을 탐험하는 액션 RPG입니다.',point:['도형을 그려 사용하는 마법','숲·채석장 지역 탐험','이동·전투·스케치 입력'],url:'https://byh-playground.github.io/bloom-sketch-town/',repo:'bloom-sketch-town',art:'sketch'},
+  {id:'rally-frontier',source:'manifest',repo:'rally-frontier',url:'https://byh-playground.github.io/rally-frontier/',art:'rally'},
+  {id:'bloom-sketch-town',source:'manifest',repo:'bloom-sketch-town',url:'https://byh-playground.github.io/bloom-sketch-town/',art:'sketch'},
   {id:'bloom-bounko',source:'manifest',repo:'bloom-bounko',url:'https://byh-playground.github.io/bloom-bounko/',art:'bounko'},
-  {id:'bloom-digmori',title:'디그모리',en:'DIGMORI',genre:'sandbox',genreName:'샌드박스',version:'태그 조회 중',status:'릴리즈 정보 확인 중',tag:['2.5D','채굴·건설','탐험'],desc:'지형을 채굴하고 건설하며 동굴과 던전을 탐험하는 샌드박스 게임입니다.',point:['절차적 지형·동굴 생성','채굴·건축·탐험','동료 편성과 전투'],url:'https://byh-playground.github.io/bloom-digmori/',repo:'bloom-digmori',art:'digmori'},
-  {id:'meow-tumble',title:'와르르냥',en:'MEOW TUMBLE',genre:'simulation',genreName:'시뮬레이션',version:'태그 조회 중',status:'릴리즈 정보 확인 중',tag:['3D 물리','고양이','1–4인'],desc:'고양이를 성장시켜 젠가 탑을 무너뜨리는 3D 물리 게임입니다.',point:['물리 기반 젠가 탑 붕괴','고양이 사냥·성장','최대 4인 플레이'],url:'https://byh-playground.github.io/meow-tumble/',repo:'meow-tumble',art:'meow'},
+  {id:'bloom-digmori',source:'manifest',repo:'bloom-digmori',url:'https://byh-playground.github.io/bloom-digmori/',art:'digmori'},
+  {id:'meow-tumble',source:'manifest',repo:'meow-tumble',url:'https://byh-playground.github.io/meow-tumble/',art:'meow'},
   {id:'budmori-io',title:'버드모리',en:'BUDMORI',genre:'strategy',genreName:'전략',version:'태그 조회 중',status:'릴리즈 정보 확인 중',tag:['농장','번식·합체','보스 레이드'],desc:'농장에서 병력을 키우고 합체시켜 보스와 싸우는 전략 게임입니다.',point:['먹이와 번식으로 병력 육성','합체와 병종 성장의 조합','다양한 능력을 활용하는 보스 전투'],url:'https://byh-playground.github.io/budmori-io/',repo:'budmori-io',art:'budmori'},
-  {id:'yarn-mayhem',title:'털실 대소동',en:'YARN MAYHEM',genre:'action',genreName:'액션',version:'태그 조회 중',status:'릴리즈 정보 확인 중',tag:['횡스크롤','액션 RPG','1–4인'],desc:'바늘로 합체·분열하는 털실 적을 상대하는 횡스크롤 액션 RPG입니다.',point:['합체·분열하는 물리 기반 적','스탯 트리로 바뀌는 전투 스타일','최대 4인 플레이'],url:'https://byh-playground.github.io/yarn-mayhem/',repo:'yarn-mayhem',art:'yarn'},
-  {id:'squish-born',title:'꾹꾹 디펜스',en:'SQUISH BORN',genre:'simulation',genreName:'시뮬레이션',version:'태그 조회 중',status:'릴리즈 정보 확인 중',tag:['촉각 실험','부화','자동 디펜스'],desc:'볼을 눌렀다 놓아 동료를 부화시키고 정원을 지키는 디펜스 게임입니다.',point:['재질 9종과 서로 다른 입력 타이밍','동료를 부화시켜 정원 지키기','전투 없는 연습 모드도 지원'],url:'https://byh-playground.github.io/squish-born/',repo:'squish-born',art:'squish'}
+  {id:'yarn-mayhem',source:'manifest',repo:'yarn-mayhem',url:'https://byh-playground.github.io/yarn-mayhem/',art:'yarn'},
+  {id:'squish-born',source:'manifest',repo:'squish-born',url:'https://byh-playground.github.io/squish-born/',art:'squish'}
 ];
 const items=id=>Array.from({length:id},(_,i)=>i);
 function svgScene(id,body,defs=''){
