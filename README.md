@@ -8,4 +8,4 @@
 
 [RALLY FRONTIER](https://github.com/byh-playground/rally-frontier)는 블룸의 문명 확장기를 다루는 작품입니다. 작품별 게임 규칙과 세부 설정은 각 게임 저장소에서 관리하고, 공통 설정은 이 위키를 참조합니다.
 
-GitHub Pages는 `release` 브랜치의 루트(`/`)를 게시합니다. 변경은 작업 브랜치에서 검토해 `main`에 머지하고, 공개 배포할 때 승인된 커밋으로 `release`를 갱신합니다.
+GitHub Pages는 `main` 브랜치의 루트(`/`)를 게시합니다. 변경은 작업 브랜치에서 검토해 `main`에 머지하며, 머지가 곧 공개 반영입니다.
