@@ -2,7 +2,7 @@
 
 BLOOM PLAYGROUND는 전시할 게임의 설명과 릴리즈 정보를 각 게임 저장소의 `bloom-game.json`에서 읽습니다. 이 문서는 그 파일의 **유일한 규격 원본**입니다. 게임 저장소의 작업자(사람이든 에이전트든)는 이 문서와 [`bloom-game.schema.json`](bloom-game.schema.json)만 보고 파일을 만들고 고칠 수 있어야 합니다.
 
-> 상태: 버드모리를 뺀 7개 게임이 이 파일을 읽습니다(`GAMES` 항목의 `source:'manifest'`). 버드모리는 아직 `index.html`의 `GAMES` 배열과 GitHub 태그 API를 사용하며, 전환이 끝나면 이 줄을 지웁니다.
+> 상태: 전시 중인 8개 게임이 모두 이 파일을 읽습니다(`GAMES` 항목의 `source:'manifest'`). 태그 조회에 GitHub API를 쓰지 않습니다.
 
 ## 두 개의 파일, 하나의 규격
 
