@@ -20,6 +20,12 @@
 - 게임 상세의 **소개 보기**는 최신 GitHub Pages의 `#/showcase`를 엽니다. 채널별 Stable/Nightly 태그 실행과 정확히 같은 버전을 보장하지 않으므로 별도 링크·안내를 유지합니다.
 - 바운코의 28초 소개는 대표 구현 사례이며, 다른 게임의 소개 길이와 시연 명령·카메라는 각 게임이 소유합니다.
 
+## 게임 정보 읽기 (전환 중)
+
+- `GAMES` 항목에 `source:'manifest'`가 있는 게임은 설명과 릴리즈 정보를 `https://byh-playground.github.io/<저장소>/bloom-game.json`(게시본)에서 읽습니다. 규격은 [MANIFEST.md](MANIFEST.md)입니다. 지금은 **바운코만** 해당하고, 나머지는 `GAMES` 배열의 설명과 GitHub 태그 API를 씁니다.
+- 매니페스트 게임은 GitHub API를 호출하지 않습니다. Nightly는 파일의 `nightly` 값을 표시하고 실행은 게임의 GitHub Pages(`main` 최신)이며, Stable은 `stable.version`의 `v` 태그를 GitHack에서 미리보기합니다. 소개 보기는 `showcase` 주소를 그대로 쓰고 없으면 버튼을 숨깁니다.
+- 파일을 못 받거나 규격에 맞지 않으면 그 카드는 `조회 실패`와 "게임 정보를 불러오지 못했습니다"로 표시하며, 이전 값이나 `GAMES`의 값으로 채우지 않습니다. 성공한 게시본 원문은 `bloom-playground-releases-v4`에 5분간 캐싱하고 읽을 때 다시 검증합니다.
+
 ## 구현
 
 - 브라우저에서 [GitHub REST matching refs API](https://docs.github.com/en/rest/git/refs#list-matching-references)의 `/git/matching-refs/tags/`를 저장소당 한 번 요청하고 반환 배열 전체에서 최신 채널 태그를 고릅니다. 이 API에 정의되지 않은 페이지 번호는 사용하지 않습니다. 응답 본문을 읽는 단계까지 9초 제한을 적용합니다.

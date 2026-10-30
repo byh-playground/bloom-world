@@ -2,7 +2,7 @@
 
 BLOOM PLAYGROUND는 전시할 게임의 설명과 릴리즈 정보를 각 게임 저장소의 `bloom-game.json`에서 읽습니다. 이 문서는 그 파일의 **유일한 규격 원본**입니다. 게임 저장소의 작업자(사람이든 에이전트든)는 이 문서와 [`bloom-game.schema.json`](bloom-game.schema.json)만 보고 파일을 만들고 고칠 수 있어야 합니다.
 
-> 상태: 규격 확정 단계입니다. 플레이그라운드는 아직 이 파일을 읽지 않으며(`index.html`의 `GAMES` 배열 사용), 각 게임 저장소의 적용과 플레이그라운드의 읽기 전환은 별도 작업입니다. 전환이 끝나면 이 줄을 지웁니다.
+> 상태: **바운코만** 이 파일을 읽습니다(`GAMES` 항목의 `source:'manifest'`). 나머지 7개 게임은 아직 `index.html`의 `GAMES` 배열과 GitHub 태그 API를 사용하며, 전환이 끝나면 이 줄을 지웁니다.
 
 ## 두 개의 파일, 하나의 규격
 
@@ -102,10 +102,11 @@ Stable 태그는 사람이 `release-tags.yml`을 수동 실행해서 만듭니�
 게임 저장소가 규격을 지키는지는 스키마로 확인합니다. 예(`ajv-cli`):
 
 ```bash
-npx ajv-cli@5 validate --spec=draft2020 -s https://byh-playground.github.io/bloom-world/playground/bloom-game.schema.json -d bloom-game.json
+curl -fsS https://raw.githubusercontent.com/byh-playground/bloom-world/main/playground/bloom-game.schema.json -o schema.json
+npx ajv-cli@5 validate --spec=draft2020 -s schema.json -d bloom-game.json
 ```
 
-CI에서는 원본을 검증하고, Pages 배포 직전에 게시본(`nightly` 포함)을 한 번 더 검증하는 것을 권장합니다. 이 절의 CI 연결은 아직 적용되지 않았습니다.
+CI에서는 원본을 검증하고, Pages 배포 직전에 게시본(`nightly` 포함)을 한 번 더 검증합니다. 스키마 주소는 `bloom-world`의 Pages가 `release` 브랜치를 게시하므로, `release`를 갱신하기 전에는 `main`의 raw 주소를 사용합니다. 적용 예: `byh-playground/bloom-bounko`의 `.github/workflows/bloom-game-manifest.yml`, `pages.yml`.
 
 ## 새 게임을 전시에 추가할 때
 
